@@ -20,10 +20,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-  run: |
-    docker build -t ${{ secrets.DOCKER_USERNAME }}/hotelapi-frontend:latest .
-    docker push ${{ secrets.DOCKER_USERNAME }}/hotelapi-frontend:latest
-
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/hotelapi-frontend:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/hotelapi-frontend:latest
 
       - name: Deploy on DigitalOcean Droplet
         uses: appleboy/ssh-action@v1.0.0
@@ -33,6 +32,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/hotelapi-frontend:latest
-            docker stop frontend || true
-            docker rm frontend || true
-            docker run -d -p 80:80 --name frontend ${{ secrets.DOCKER_USERNAME }}/hotelapi-frontend:latest
+            docker stop frontend || tr
